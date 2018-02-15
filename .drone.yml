@@ -12,7 +12,7 @@ pipeline:
       event: push
       status: success
     secrets: [slack_webhook]
-    image: devcohealth/drone-slack-plugin:0.0.1-19
+    image: devcohealth/drone-slack-plugin:0.0.1-20
     channel: cloudops
 
 ###############################################################################
@@ -26,7 +26,7 @@ pipeline:
     status: success
     deploy_to: qa
     releasenotes: true
-    image: devcohealth/drone-slack-plugin:0.0.1-19
+    image: devcohealth/drone-slack-plugin:0.0.1-20
     channel: cloudops
 
 ###############################################################################
@@ -37,7 +37,7 @@ pipeline:
       status: failure
     secrets:
       - slack_webhook
-    image: devcohealth/drone-slack-plugin:0.0.1-19
+    image: devcohealth/drone-slack-plugin:0.0.1-20
     channel: cloudops
     template: >
         <!here> {{ repo.name }} build {{build.number}} failed! Fix me please. {{ build.link }} :angry_eyes:
