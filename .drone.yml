@@ -23,6 +23,7 @@ pipeline:
     when:
       event: tag
     secrets: [slack_webhook]
+    status: success
     image: devcohealth/drone-slack-plugin
     channel: cloudops
 
