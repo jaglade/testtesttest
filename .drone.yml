@@ -1,0 +1,40 @@
+pipeline:
+  parse_tag:
+    image: alpine
+    commands:
+      - VERSION=$(grep version gradle.properties | awk -F "=" '{print $2}')
+      - echo $VERSION-${DRONE_COMMIT_SHA:0:8} > .tags
+      - cat .tags
+
+  dev_deployment_notification:
+    when:
+      branch: master
+      event: push
+      status: success
+    secrets: [slack_webhook]
+    image: devcohealth/drone-slack-plugin
+    channel: cloudops
+
+###############################################################################
+# manual deploys
+###############################################################################
+
+  deployment_notification:
+    when:
+      event: tag
+    secrets: [slack_webhook]
+    image: devcohealth/drone-slack-plugin
+    channel: cloudops
+
+###############################################################################
+#  Any failure
+###############################################################################
+  notify:
+    when:
+      status: failure
+    secrets:
+      - slack_webhook
+    image: devcohealth/drone-slack-plugin
+    channel: cloudops
+    template: >
+        <!here> {{ repo.name }} build {{build.number}} failed! Fix me please. {{ build.link }} :angry_eyes:
