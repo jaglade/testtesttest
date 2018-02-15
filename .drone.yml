@@ -6,6 +6,14 @@ pipeline:
       - echo $VERSION-${DRONE_COMMIT_SHA:0:8} > .tags
       - cat .tags
 
+  fail_step:
+    when:
+      branch: master
+      event: push
+    image: alpine
+    commands:
+      - exit 1
+
   dev_deployment_notification:
     when:
       branch: master
@@ -40,4 +48,4 @@ pipeline:
     image: devcohealth/drone-slack-plugin:0.0.1-20
     channel: cloudops
     template: >
-        <!here> {{ repo.name }} build {{build.number}} failed! Fix me please. {{ build.link }} :angry_eyes:
+        <!here> {{ repo.name }} <{{ build.link }}| Build: {{ build.number }}> failed! Fix me please. :angry_eyes:
