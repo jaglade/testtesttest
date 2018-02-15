@@ -48,4 +48,4 @@ pipeline:
     image: devcohealth/drone-slack-plugin:0.0.1-20
     channel: cloudops
     template: >
-        <!here> {{ repo.name }} <{{ build.link }}| {{ repo.name }} Build: {{ build.number }}> failed! Fix me please. :angry_eyes:
+        <!here> <{{ build.link }}| {{ repo.name }} Build: {{ build.number }}> failed! Fix me please. :angry_eyes:
