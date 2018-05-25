@@ -1,1 +1,2 @@
 thisfilehaspasswords.txt filter=git-crypt diff=git-crypt
+testing.txt filter=git-crypt diff=git-crypt
